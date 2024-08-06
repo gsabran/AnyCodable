@@ -55,6 +55,8 @@ extension _AnyEncodable {
         #if canImport(Foundation)
         case is NSNull:
             try container.encodeNil()
+        case let number as NSNumber:
+            try encode(nsnumber: number, into: &container)
         #endif
         case is Void:
             try container.encodeNil()
@@ -87,8 +89,6 @@ extension _AnyEncodable {
         case let string as String:
             try container.encode(string)
         #if canImport(Foundation)
-        case let number as NSNumber:
-            try encode(nsnumber: number, into: &container)
         case let date as Date:
             try container.encode(date)
         case let url as URL:
@@ -112,7 +112,7 @@ extension _AnyEncodable {
         case "B":
             try container.encode(nsnumber.boolValue)
         case "c":
-            try container.encode(nsnumber.int8Value)
+            try container.encode(nsnumber.boolValue)
         case "s":
             try container.encode(nsnumber.int16Value)
         case "i", "l":
@@ -120,7 +120,7 @@ extension _AnyEncodable {
         case "q":
             try container.encode(nsnumber.int64Value)
         case "C":
-            try container.encode(nsnumber.uint8Value)
+            try container.encode(nsnumber.boolValue)
         case "S":
             try container.encode(nsnumber.uint16Value)
         case "I", "L":
